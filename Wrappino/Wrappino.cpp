@@ -78,10 +78,18 @@ void Wrappino::delay(unsigned long time) {
 }
 
 // wrapping original setup and loop
+#ifndef WRAPPINO_SETUP
 void setup() {
 	Wrappino::node-> setup();
 }
+#else
+#define WRAPPINO_SETUP Wrappino::node-> setup();
+#endif
 
+#ifndef WRAPPINO_LOOP
 void loop() {
 	Wrappino::node-> loop();
 }
+#else
+#define WRAPPINO_LOOP Wrappino::node-> loop();
+#endif
