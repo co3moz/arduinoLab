@@ -57,7 +57,7 @@ class LedDotMatrix {
 		}
 	}
 	
-	void setPixel(byte x, byte y, byte a) {
+	void setVerticalPixel(byte x, byte y, byte a) {
 		// 0-7 arasını kabul et
 		x &= 7;
 		y &= 7;
@@ -69,9 +69,18 @@ class LedDotMatrix {
 		if(a) graph[y] | 1 << x;
 	}
 	
-	void setPixel(byte pixel, byte a) {
+	void setHorizontalPixel(byte x, byte y, byte a) {
+		return setVerticalPixel(y, x, a);
+	}
+	
+	void setVerticalPixel(byte pixel, byte a) {
 		//doğrusal sayıyı 2 boyutlu sayıya çevir.
-		setPixel(pixel >> 3, pixel % 8);
+		setVerticalPixel(pixel >> 3, pixel % 8);
+	}
+	
+	
+	void setHorizontalPixel(byte pixel, byte a){
+		setHorizontalPixel(pixel >> 3, pixel % 8);
 	}
 	
 	void setVerticalLine(byte line, byte a) {
@@ -82,14 +91,14 @@ class LedDotMatrix {
 	
 	void setHorizontalLine(byte line, byte a) {
 		//graph yatay çıkışı vermediğinden line'i tektek ayarlıyoruz.
-		setPixel(0, line, a&1);
-		setPixel(1, line, a&2);
-		setPixel(2, line, a&4);
-		setPixel(3, line, a&8);
-		setPixel(4, line, a&16);
-		setPixel(5, line, a&32);
-		setPixel(6, line, a&64);
-		setPixel(7, line, a&128);
+		setVerticalPixel(0, line, a&1);
+		setVerticalPixel(1, line, a&2);
+		setVerticalPixel(2, line, a&4);
+		setVerticalPixel(3, line, a&8);
+		setVerticalPixel(4, line, a&16);
+		setVerticalPixel(5, line, a&32);
+		setVerticalPixel(6, line, a&64);
+		setVerticalPixel(7, line, a&128);
 	}
 	
 	void setVertical(byte* a) {
@@ -106,7 +115,10 @@ class LedDotMatrix {
 	
 	void transpoze() {
 		byte* temp = new byte[8];
-		// == YOU ARE IN HERE DUDE == @co3moz
+		for(int i = 0;i<8;i++) {
+			
+		}
+		
 	}
 	
 	byte* getGraph() {
